@@ -2706,3 +2706,9 @@ Working on new Css by taleev
     -fx-text-fill: #FF0000;
     -fx-font-weight: bold;
 }
+
+.biometricTypeLabel {
+	-fx-text-fill: #666666;
+	-fx-font-size: 1.2em;
+	-fx-padding: 0px 0px 0px 60px ;
+}

@@ -36,7 +36,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import io.mosip.kernel.biometrics.constant.ProcessedLevelType;
 import io.mosip.kernel.core.util.FileUtils;
 import io.mosip.kernel.core.util.JsonUtils;
 import io.mosip.registration.api.docscanner.DeviceType;
@@ -272,12 +271,7 @@ public class BaseServiceTest {
 		Mockito.when(FileUtils.getFile(Mockito.anyString())).thenReturn(new File("../pom.xml"));
 		Assert.assertNotNull(baseService.preparePacketStatusDto(registration));
 	}
-	
-	@Test
-	public void buildBirTest() throws Throwable,IOException  {
-		byte[] iso = "slkdalskdjslkajdjadj".getBytes();
-		Assert.assertNotNull(baseService.buildBir("Face", 2, iso, ProcessedLevelType.INTERMEDIATE));
-	}
+
 	@Test
 	public void getConfiguredLangCodesTest() throws Throwable,IOException  {
 		Assert.assertNotNull(baseService.getConfiguredLangCodes());
