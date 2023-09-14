@@ -16,6 +16,7 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
+import javafx.scene.layout.*;
 import javafx.scene.Cursor;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -205,12 +206,16 @@ public class GenericController extends BaseController {
 		hBox.setSpacing(20);
 		hBox.setPrefHeight(100);
 		hBox.setPrefWidth(200);
+		hBox.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_GROUP);
+		hBox.setPadding(new Insets(20, 0, 20, 0));
 
 		Label label = new Label();
 		label.getStyleClass().add(LABEL_CLASS);
 		label.setId("preRegistrationLabel");
 		label.setText(ApplicationContext.getBundle(langCode, RegistrationConstants.LABELS)
 				.getString("search_for_Pre_registration_id"));
+		label.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_GROUP_LABEL);
+		label.setPadding(new Insets(0, 0, 0, 55));
 		hBox.getChildren().add(label);
 		TextField textField = new TextField();
 		textField.setId("preRegistrationId");
@@ -752,10 +757,30 @@ public class GenericController extends BaseController {
 			}
 
 			for(Entry<String, List<UiFieldDTO>> groupEntry : screenFieldGroups.entrySet()) {
-				FlowPane groupFlowPane = new FlowPane();
+				GridPane groupFlowPane = new GridPane();
 				groupFlowPane.prefWidthProperty().bind(gridPane.widthProperty());
 				groupFlowPane.setHgap(20);
 				groupFlowPane.setVgap(20);
+
+				if(screenDTO.getName().equals("DemographicDetails")) {
+					groupFlowPane.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_GROUP);
+					groupFlowPane.setPadding(new Insets(20, 0, 20, 0));
+
+					ColumnConstraints leftColumn = new ColumnConstraints();
+					leftColumn.setPercentWidth(50);
+					ColumnConstraints rightColumn = new ColumnConstraints();
+					rightColumn.setPercentWidth(50);
+					groupFlowPane.getColumnConstraints().addAll(leftColumn, rightColumn);
+
+					/* Adding Group label */
+					Label label = new Label(groupEntry.getKey());
+					label.getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_GROUP_LABEL);
+					label.setPadding(new Insets(0, 0, 0, 55));
+					/*label.setPrefWidth(1200);*/
+					groupFlowPane.add(label, 0, 0, 2, 1);
+				}
+				int fieldIndex=0;
+
 
 				for(UiFieldDTO fieldDTO : groupEntry.getValue()) {
 					try {
@@ -763,10 +788,26 @@ public class GenericController extends BaseController {
 						if(fxControl.getNode() instanceof GridPane) {
 							((GridPane)fxControl.getNode()).prefWidthProperty().bind(groupFlowPane.widthProperty());
 						}
-						groupFlowPane.getChildren().add(fxControl.getNode());
+						if(screenDTO.getName().equals("DemographicDetails")) {
+							fxControl.getNode().getStyleClass().add(RegistrationConstants.DEMOGRAPHIC_FIELD);
+							groupFlowPane.add( fxControl.getNode(), (fieldIndex % 2), (fieldIndex / 2) + 1);
+							fieldIndex++;
+						} else {
+							if(screenDTO.getName().equals("Documents")) {
+								fxControl.getNode().getStyleClass().add(RegistrationConstants.DOCUMENT_COMBOBOX_FIELD);
+							}
+							groupFlowPane.getChildren().add(fxControl.getNode());
+						}
 					} catch (Exception exception){
 						LOGGER.error("Failed to build control " + fieldDTO.getId(), exception);
 					}
+				}
+				//Hide introducer grouping for adults
+				if(groupEntry.getKey().equals("Introducteur")) {
+					groupFlowPane.visibleProperty().bind(Bindings.or(
+							groupFlowPane.getChildren().get(1).visibleProperty(),
+							groupFlowPane.getChildren().get(2).visibleProperty())
+					);
 				}
 				gridPane.add(groupFlowPane, 0, rowIndex++);
 			}

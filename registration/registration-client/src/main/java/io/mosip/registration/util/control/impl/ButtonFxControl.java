@@ -158,8 +158,8 @@ public class ButtonFxControl extends FxControl {
 			val.forEach(genericDto -> {
 				Button button = new Button(genericDto.getName());
 				button.setId(uiFieldDTO.getId() + genericDto.getCode());
-				hBox.setSpacing(10);
-				hBox.setPadding(new Insets(10, 10, 10, 10));
+				hBox.setSpacing(5);
+				hBox.setPadding(new Insets(10, 4, 10, 4));
 				button.getStyleClass().addAll(residence, buttonStyle);
 				hBox.getChildren().add(button);
 				setListener(button);

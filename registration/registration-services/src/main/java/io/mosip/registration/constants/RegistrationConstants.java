@@ -601,6 +601,10 @@ public class RegistrationConstants {
 	public static final String TEMPLATE_IS_UIN_UPDATE = "IsUINUpdate";
 	public static final String TEMPLATE_APPLICANT_NAME_LABEL = "NameLabel";
 	public static final String TEMPLATE_APPLICANT_NAME_VALUE = "NameValue";
+	public static final String DEMOGRAPHIC_GROUP = "preRegParentPaneSection";
+	public static final String DEMOGRAPHIC_GROUP_LABEL = "demoGraphicCustomLabel";
+	public static final String DEMOGRAPHIC_FIELD = "demoGraphicCustomField";
+	public static final String DOCUMENT_COMBOBOX_FIELD = "documentCustomCombobox";
 
 	public static final String MODIFY_DEMO_INFO = "modifyDemographicInfo";
 	public static final String MODIFY_DOCUMENTS = "modifyDocuments";

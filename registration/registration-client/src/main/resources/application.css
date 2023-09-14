@@ -2712,3 +2712,21 @@ Working on new Css by taleev
 	-fx-font-size: 1.2em;
 	-fx-padding: 0px 0px 0px 60px ;
 }
+
+.preRegParentPaneSection {
+	-fx-border-color:#020F59;
+	-fx-border-radius: 10.0 10.0 10.0 10.0;
+}
+
+.demoGraphicCustomLabel {
+	-fx-background-color: #ffffff;
+	-fx-border-width: 0.0;
+	-fx-text-fill: #020F59;
+	-fx-font-size: 1.5em;
+	-fx-font-weight: 800;
+}
+
+.demoGraphicCustomField{
+	-fx-pref-width: 50%;
+	-fx-padding: 0 0 10 55;
+}
